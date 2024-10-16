@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_16_110423) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_16_112710) do
   create_table "movies", charset: "utf8mb4", force: :cascade do |t|
     t.string "Title"
     t.text "Blurb"
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_16_110423) do
     t.datetime "showing_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "genre"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
