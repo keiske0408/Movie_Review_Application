@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :movies
   get 'home/about'
   root 'home#index'
   devise_for :users
