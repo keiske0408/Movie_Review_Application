@@ -1,26 +1,32 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
 require 'faker'
+Movie.destroy_all
+User.destroy_all
+Genre.destroy_all
+genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Romance', 'Documentary', 'Thriller']
+genres.each do |genre_name|
+  Genre.create!(name: genre_name)
+end
+# Creating users and associated movies
+2.times do
+  # user = User.create!(email: Faker::Internet.email, password: 'qwer4321', password_confirmation: "qwer4321")
+  # puts "Created user id: #{user.id}, email: #{user.email}"
 
-# Define a list of genres
-genres = ['Action', 'Comedy', 'Drama', 'Fantasy', 'Horror', 'Sci-Fi', 'Thriller', 'Romance']
-
-# Create 10 movies with random titles, blurbs, and genres
-10.times do
-  Movie.create(
-    Title: Faker::Movie.title,
-    Blurb: Faker::Lorem.sentence(word_count: 10),
+  # Create a movie for each user
+  movie = user.movies.create!(
+    title: Faker::Movie.title,
+    blurb: Faker::Lorem.sentence(word_count: 10),
     date_released: Faker::Date.between(from: '2000-01-01', to: Date.today),
     country_of_origin: Faker::Address.country,
     showing_start: Faker::Date.between(from: DateTime.now, to: DateTime.now + 1.year),
     showing_end: Faker::Date.between(from: DateTime.now + 1.year, to: DateTime.now + 2.years),
-    genre: genres.sample # Randomly select a genre from the list
+    user: User.all.sample
   )
+
+  # Assign 3 random genres to the movie using RAND() for MySQL
+  random_genres = Genre.order('RAND()').limit(3) # Use RAND() for MySQL
+  movie.genres = random_genres
 end
 
-puts "Created #{Movie.count} movies."
+puts "Seed data created successfully!"
+
+
