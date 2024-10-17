@@ -6,9 +6,13 @@
   <% @movies.each do |movie| %>
     <%= render movie %>
     <p>
-      <%= link_to "Show this movie", movie %>
+      <%= link_to "Show this movie", movie %> |
+      <%= link_to "Edit this movie", edit_movie_path(movie) %>
     </p>
   <% end %>
-</div>
 
-<%= link_to "New movie", new_movie_path %>
+  <%= link_to "New movie", new_movie_path %>
+  <div class="mt-4">
+    <%= paginate @movies %>
+  </div>
+</div>

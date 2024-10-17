@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    @movies = Movie.includes(:genres, :user).page(params[:page]).per(1)
   end
 
   # GET /movies/1 or /movies/1.json
@@ -36,14 +36,10 @@ class MoviesController < ApplicationController
 
   # PATCH/PUT /movies/1 or /movies/1.json
   def update
-    respond_to do |format|
-      if @movie.update(movie_params)
-        format.html { redirect_to @movie, notice: "Movie was successfully updated." }
-        format.json { render :show, status: :ok, location: @movie }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @movie.errors, status: :unprocessable_entity }
-      end
+    if @movie.update(movie_params)
+      redirect_to @movie, notice: "Movie was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -65,6 +61,6 @@ class MoviesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def movie_params
-      params.require(:movie).permit(:title, :Blurb, :date_released, :country_of_origin, :showing_start, :showing_end)
+      params.require(:movie).permit(:title, :blurb, :date_released, :country_of_origin, :showing_start, :showing_end)
     end
 end
