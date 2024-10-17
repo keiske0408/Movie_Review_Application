@@ -1,12 +1,17 @@
 <div id="<%= dom_id movie %>">
   <p>
     <strong>Title:</strong>
-    <%= movie.Title %>
+    <%= movie.title %>
   </p>
 
   <p>
     <strong>Blurb:</strong>
-    <%= movie.Blurb %>
+    <%= movie.blurb %>
+  </p>
+
+  <p>
+    <strong>Genres:</strong>
+    <%= movie.genres.pluck(:name).join(',') %>
   </p>
 
   <p>
