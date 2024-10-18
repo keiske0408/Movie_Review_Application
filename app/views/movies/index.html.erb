@@ -7,7 +7,8 @@
     <%= render movie %>
     <p>
       <%= link_to "Show this movie", movie %> |
-      <%= link_to "Edit this movie", edit_movie_path(movie) %>
+      <%#= link_to "Edit this movie", edit_movie_path(movie) %>
+      <%= link_to "Edit this movie", edit_movie_path(movie, page: params[:page],genre: params[:genre]), class: "text-decoration-none" %>
     </p>
   <% end %>
 

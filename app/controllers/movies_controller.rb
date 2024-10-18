@@ -4,6 +4,8 @@ class MoviesController < ApplicationController
   # GET /movies or /movies.json
   def index
     @movies = Movie.includes(:genres, :user).page(params[:page]).per(1)
+    params[:page] = params[:page].present? ? params[:page] : "1"
+    session[:last_movies_page] = params[:page].present? ? params[:page] : session[:last_movies_page]
   end
 
   # GET /movies/1 or /movies/1.json
@@ -37,7 +39,7 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1 or /movies/1.json
   def update
     if @movie.update(movie_params)
-      redirect_to @movie, notice: "Movie was successfully updated."
+      redirect_to movies_path(page: session[:last_movies_page]), notice: "Movie was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -54,13 +56,14 @@ class MoviesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_movie
-      @movie = Movie.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def movie_params
-      params.require(:movie).permit(:title, :blurb, :date_released, :country_of_origin, :showing_start, :showing_end)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_movie
+    @movie = Movie.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def movie_params
+    params.require(:movie).permit(:title, :blurb, :date_released, :country_of_origin, :showing_start, :showing_end)
+  end
 end
