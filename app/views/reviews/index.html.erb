@@ -1,0 +1,22 @@
+<h1 class="display-4"><%= @movie.title %></h1>
+<h2 class="h5">Comments</h2>
+<ul class="list-group mb-4">
+  <% @reviews.each do |review| %>
+    <li class="list-group-item">
+      <p><strong><%= review.content %></strong> (<%= review.created_at.strftime("%B %d, %Y at %I:%M %p") %>)</p>
+      <p>Rating: <%= review.rating %> <span class="badge badge-primary"></span></p>
+      <div class="btn-group" role="group" aria-label="Review Actions">
+        <%= link_to 'Edit', edit_movie_review_path(@movie, review), class: "btn btn-warning btn-sm" %>
+        <%= button_to 'Delete', movie_review_path(@movie, review), method: :delete, class: "btn btn-danger btn-sm" %>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<div class="mb-4">
+  <div class="btn-group" role="group" aria-label="New Review Actions">
+    <%= link_to 'New Review', new_movie_review_path(@movie), class: "btn btn-success btn-sm" %>
+    <%= link_to 'Return to Movie List', movies_path, class: "btn btn-secondary btn-sm" %>
+  </div>
+</div>
+
