@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.includes(:genres, :user).page(params[:page]).per(1)
+    @movies = Movie.includes(:genres, :user).page(params[:page]).per(5)
     params[:page] = params[:page].present? ? params[:page] : "1"
     session[:last_movies_page] = params[:page].present? ? params[:page] : session[:last_movies_page]
   end
