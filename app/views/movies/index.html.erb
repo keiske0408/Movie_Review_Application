@@ -1,18 +1,23 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-success"><%= notice %></p>
 
-<h1>Movies</h1>
+<h1 class="display-4">Movies</h1>
 
-<div id="movies">
+<div id="movies" class="list-group">
   <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %> |
-      <%#= link_to "Edit this movie", edit_movie_path(movie) %>
-      <%= link_to "Edit this movie", edit_movie_path(movie, page: params[:page],genre: params[:genre]), class: "text-decoration-none" %>
-    </p>
+    <div class="list-group-item">
+      <h5 class="mb-1"><%= movie.title %></h5>
+      <p class="mb-1">Average Rating: <strong><%= movie.average_rating %></strong></p>
+      <div>
+        <%= link_to "Show this movie", movie, class: "btn btn-primary btn-sm" %>
+        <%= link_to "Edit this movie", edit_movie_path(movie, page: params[:page], genre: params[:genre]), class: "btn btn-warning btn-sm" %>
+        <%= link_to "Review this movie", new_movie_review_path(movie), class: "btn btn-info btn-sm" %>
+      </div>
+    </div>
   <% end %>
 
-  <%= link_to "New movie", new_movie_path %>
+  <div class="mt-4">
+    <%= link_to "New movie", new_movie_path, class: "btn btn-success" %>
+  </div>
   <div class="mt-4">
     <%= paginate @movies %>
   </div>
