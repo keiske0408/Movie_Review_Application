@@ -1,4 +1,5 @@
 class Movie < ApplicationRecord
+  before_save :generate_slug
   validates :title, presence: true
   validates :blurb, presence: true
   belongs_to :user
@@ -11,4 +12,17 @@ class Movie < ApplicationRecord
     return 0 if reviews.empty? # Avoid division by zero
     reviews.average(:rating).round(2) # Round to 2 decimal places
   end
+  def to_param
+    slug
+  end
+
+  private
+  def generate_slug
+    begin
+      self.slug = SecureRandom.urlsafe_base64(5)
+    end while Movie.exists?(slug: slug)
+  end
 end
+
+
+

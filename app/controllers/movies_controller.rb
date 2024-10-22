@@ -10,6 +10,7 @@ class MoviesController < ApplicationController
 
   # GET /movies/1 or /movies/1.json
   def show
+    # render :json => params
   end
 
   # GET /movies/new
@@ -59,11 +60,13 @@ class MoviesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_movie
-    @movie = Movie.find(params[:id])
+    # @movie = Movie.find(params[:id])
+    # render :json => params
+    @movie = Movie.find_by!(slug: params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def movie_params
-    params.require(:movie).permit(:title, :blurb, :date_released, :country_of_origin, :showing_start, :showing_end)
+    params.require(:movie).permit(:title, :blurb, :date_released, :country_of_origin, :showing_start, :showing_end, :slug)
   end
 end

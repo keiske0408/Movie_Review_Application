@@ -9,8 +9,8 @@
       <p class="mb-1">Average Rating: <strong><%= movie.average_rating %></strong></p>
       <p class="mb-2">Description: <i><%= movie.blurb %></i></p>
       <div>
-        <%= link_to "Show this movie", movie, class: "btn btn-primary btn-sm" %>
-        <%= link_to "Edit this movie", edit_movie_path(movie, page: params[:page], genre: params[:genre]), class: "btn btn-warning btn-sm" %>
+        <%= link_to "Show this movie", movie_path(movie), class: "btn btn-primary btn-sm" %>
+        <%= link_to "Edit this movie", edit_movie_path(id: movie, page: params[:page], genre: params[:genre]), class: "btn btn-warning btn-sm" %>
         <%= link_to "Review this movie", new_movie_review_path(movie), class: "btn btn-info btn-sm" %>
       </div>
     </div>
