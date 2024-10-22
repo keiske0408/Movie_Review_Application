@@ -3,8 +3,15 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
+    @top_movies = Movie.joins(:reviews)
+                       .select('movies.*, AVG(reviews.rating) AS average_rating')
+                       .group('movies.id')
+                       .order('average_rating DESC')
+                       .limit(3)
+
     @genres = Genre.all
-    @movies = Movie.includes(:genres, :user).page(params[:page]).per(5)
+
+    @movies = Movie.includes(:genres, :user)
 
     if params[:genre].present?
       @movies = @movies.joins(:genres).where(genres: { id: params[:genre] })
@@ -21,6 +28,13 @@ class MoviesController < ApplicationController
         @movies = @movies.where('showing_end < ?', now)
       end
     end
+
+    @movies = @movies.joins(:reviews)
+                     .select('movies.*, AVG(reviews.rating) AS average_rating')
+                     .group('movies.id')
+                     .order('average_rating DESC')
+    # @top_movies = Movie.includes(:genres).order('average_rating DESC').limit(3)
+    @movies = @movies.page(params[:page]).per(5)
 
     params[:page] = params[:page].present? ? params[:page] : "1"
     session[:last_movies_page] = params[:page].present? ? params[:page] : session[:last_movies_page]
