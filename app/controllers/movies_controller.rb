@@ -3,10 +3,29 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
+    @genres = Genre.all
     @movies = Movie.includes(:genres, :user).page(params[:page]).per(5)
+
+    if params[:genre].present?
+      @movies = @movies.joins(:genres).where(genres: { id: params[:genre] })
+    end
+
+    if params[:showing_status].present?
+      now = Time.current
+      case params[:showing_status]
+      when "showing"
+        @movies = @movies.where('showing_start <= ? AND showing_end >= ?', now, now)
+      when "upcoming"
+        @movies = @movies.where('showing_start > ?', now)
+      when "ended"
+        @movies = @movies.where('showing_end < ?', now)
+      end
+    end
+
     params[:page] = params[:page].present? ? params[:page] : "1"
     session[:last_movies_page] = params[:page].present? ? params[:page] : session[:last_movies_page]
   end
+
 
   # GET /movies/1 or /movies/1.json
   def show

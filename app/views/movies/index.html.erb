@@ -2,15 +2,41 @@
 
 <h1 class="display-4">Movies</h1>
 
+<%= form_with(url: movies_path, method: :get, class: 'form-inline') do %>
+  <div class="form-group mx-2 pt-2 pb-2">
+    <%= label_tag :genre, 'Filter by Genre' %>
+    <%= select_tag :genre, options_from_collection_for_select(@genres, :id, :name, selected: params[:genre]), class: 'form-control' %>
+  </div>
+
+  <div class="form-group mx-2">
+    <%= label_tag :showing_status, 'Filter by Showing Status' %>
+    <%= select_tag :showing_status, options_for_select([['Currently Showing', 'showing'], ['Upcoming', 'upcoming'], ['Ended', 'ended']], selected: params[:showing_status]), class: 'form-control' %>
+  </div>
+
+  <div class="form-group mx-2 pt-2 pb-2">
+    <%= submit_tag 'Apply Filters', class: 'btn btn-primary' %> <%= link_to 'Clear Filters', movies_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>
+
 <div id="movies" class="list-group">
   <% @movies.each do |movie| %>
     <div class="list-group-item">
       <h5 class="mb-1"><%= movie.title %></h5>
       <p class="mb-1">Average Rating: <strong><%= movie.average_rating %></strong></p>
       <p class="mb-2">Description: <i><%= movie.blurb %></i></p>
+
+      <p class="mb-2">
+        <strong>Genres:</strong>
+        <% if movie.genres.any? %>
+          <%= movie.genres.map(&:name).join(', ') %>
+        <% else %>
+          No genres available
+        <% end %>
+      </p>
+
       <div>
         <%= link_to "Show this movie", movie_path(movie), class: "btn btn-primary btn-sm" %>
-        <%= link_to "Edit this movie", edit_movie_path(id: movie, page: params[:page], genre: params[:genre]), class: "btn btn-warning btn-sm" %>
+        <%= link_to "Edit this movie", edit_movie_path(id: movie, page: params[:page], genre: params[:genre], showing_status: params[:showing_status]), class: "btn btn-warning btn-sm" %>
         <%= link_to "Review this movie", new_movie_review_path(movie), class: "btn btn-info btn-sm" %>
       </div>
     </div>
