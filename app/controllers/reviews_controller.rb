@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [:edit, :update, :destroy]
 
   def index
-    @reviews = @movie.reviews.order(rating: :desc)
+    @reviews = @movie.reviews.order(rating: :desc).page(params[:page]).per(5)
   end
 
   def new
@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
   def edit; end
 
   def update
-    if @review.update(review_params)
+    if @review.update(review_params.except(:rating))
       flash[:notice] = 'Review updated successfully'
       redirect_to movie_reviews_path(@movie)
     else

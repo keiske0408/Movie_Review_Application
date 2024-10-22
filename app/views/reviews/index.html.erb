@@ -18,5 +18,8 @@
     <%= link_to 'New Review', new_movie_review_path(@movie), class: "btn btn-success btn-sm" %>
     <%= link_to 'Return to Movie List', movies_path, class: "btn btn-secondary btn-sm" %>
   </div>
+  <div class="mt-3">
+    <%= paginate @reviews %>
+  </div>
 </div>
 
