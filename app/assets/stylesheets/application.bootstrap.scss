@@ -37,4 +37,23 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow */
 }
 
+.jumbotron {
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.btn[disabled] {
+  background-color: #e9ecef; /* Light grey */
+  color: #6c757d; /* Darker grey */
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+.card {
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+.card-header {
+  border-bottom: 2px solid #0056b3; /* Stronger bottom border */
+}
+
 

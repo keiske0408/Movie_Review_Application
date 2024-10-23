@@ -1,37 +1,36 @@
-<div id="<%= dom_id movie %>">
-  <p>
-    <strong>Title:</strong>
-    <%= movie.title %>
-  </p>
+<div id="<%= dom_id movie %>" class="card mb-4">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0"><%= movie.title %></h5>
+  </div>
+  <div class="card-body">
+    <p class="mb-2">
+      <strong>Blurb:</strong>
+      <span><%= movie.blurb %></span>
+    </p>
 
-  <p>
-    <strong>Blurb:</strong>
-    <%= movie.blurb %>
-  </p>
+    <p class="mb-2">
+      <strong>Genres:</strong>
+      <span><%= movie.genres.pluck(:name).join(', ') %></span>
+    </p>
 
-  <p>
-    <strong>Genres:</strong>
-    <%= movie.genres.pluck(:name).join(',') %>
-  </p>
+    <p class="mb-2">
+      <strong>Date Released:</strong>
+      <span><%= movie.date_released %></span>
+    </p>
 
-  <p>
-    <strong>Date released:</strong>
-    <%= movie.date_released %>
-  </p>
+    <p class="mb-2">
+      <strong>Country of Origin:</strong>
+      <span><%= movie.country_of_origin %></span>
+    </p>
 
-  <p>
-    <strong>Country of origin:</strong>
-    <%= movie.country_of_origin %>
-  </p>
+    <p class="mb-2">
+      <strong>Showing Start:</strong>
+      <span><%= movie.showing_start %></span>
+    </p>
 
-  <p>
-    <strong>Showing start:</strong>
-    <%= movie.showing_start %>
-  </p>
-
-  <p>
-    <strong>Showing end:</strong>
-    <%= movie.showing_end %>
-  </p>
-
+    <p class="mb-2">
+      <strong>Showing End:</strong>
+      <span><%= movie.showing_end %></span>
+    </p>
+  </div>
 </div>

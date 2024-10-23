@@ -1,2 +1,14 @@
-<h1>Hello World</h1>
-<p>Home Page</p>
+<div class="jumbotron jumbotron-fluid" style="margin: 0;">
+  <div class="container-fluid p-5">
+    <h1 class="display-4 text-center">Movie Review Application</h1>
+    <p class="lead text-center">This project is a Ruby on Rails application that allows users to sign in and sign up using a username, manage their movie collections, and post reviews. Users can explore movies, filter them by genre and showing status, and interact with other users through reviews.</p>
+    <div class="text-center">
+      <img src="<%= asset_path('background.jpg') %>" class="img-fluid" alt="Movies" style="max-width: 100%; height: auto; margin-top: 20px;">
+    </div>
+    <hr class="my-4">
+    <p class="text-center">Get started by browsing our collection of movies!</p>
+    <div class="text-center">
+      <%= link_to 'Explore Movies', movies_path, class: 'btn btn-primary btn-lg' %>
+    </div>
+  </div>
+</div>

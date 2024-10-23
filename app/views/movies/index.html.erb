@@ -18,36 +18,47 @@
   </div>
 <% end %>
 
-<div id="movies" class="list-group">
-  <!-- Display Top 3 Movies with 'Hot' Label -->
-  <h2>Hot Movies</h2>
+<!-- Display Top 3 Movies with 'Hot' Label -->
+<h2>Hot Movies</h2>
+<div class="row">
   <% @top_movies.each do |movie| %>
-    <div class="list-group-item">
-      <h5 class="mb-1"><%= movie.title %> <span class="badge badge-danger">Hot</span></h5>
-      <p class="mb-1">Average Rating: <strong><%= movie.average_rating %></strong></p>
-      <p class="mb-2">Description: <i><%= movie.blurb %></i></p>
+    <div class="col-md-4 mb-4">
+      <div class="list-group-item" style="min-height: 200px;">
+        <h5 class="mb-1"><%= movie.title %> <span class="badge badge-danger">Hot</span></h5>
+        <p class="mb-1">Average Rating: <strong><%= movie.average_rating %></strong></p>
+        <p class="mb-2">Description: <i><%= movie.blurb %></i></p>
 
-      <p class="mb-2">
-        <strong>Genres:</strong>
-        <% if movie.genres.any? %>
-          <%= movie.genres.map(&:name).join(', ') %>
-        <% else %>
-          No genres available
-        <% end %>
-      </p>
+        <p class="mb-2">
+          <strong>Genres:</strong>
+          <% if movie.genres.any? %>
+            <%= movie.genres.map(&:name).join(', ') %>
+          <% else %>
+            No genres available
+          <% end %>
+        </p>
 
-      <div>
-        <%= link_to "Show this movie", movie_path(movie), class: "btn btn-primary btn-sm" %>
-        <%= link_to "Edit this movie", edit_movie_path(id: movie, page: params[:page], genre: params[:genre], showing_status: params[:showing_status]), class: "btn btn-warning btn-sm" %>
-        <%= link_to "Review this movie", new_movie_review_path(movie), class: "btn btn-info btn-sm" %>
+        <div class="d-flex justify-content-between mt-3">
+          <div>
+            <%= link_to "Show this movie", movie_path(movie), class: "btn btn-primary btn-sm" %>
+            <% if user_signed_in? %>
+              <%= link_to "Edit this movie", edit_movie_path(id: movie, page: params[:page], genre: params[:genre], showing_status: params[:showing_status]), class: "btn btn-warning btn-sm" %>
+              <%= link_to "Review this movie", new_movie_review_path(movie), class: "btn btn-info btn-sm" %>
+            <% else %>
+              <button class="btn btn-warning btn-sm" disabled>Edit this movie</button>
+              <button class="btn btn-info btn-sm" disabled>Review this movie</button>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>
+</div>
 
-  <!-- Display Filtered Movies -->
-  <h2 class="mt-4">All Movies</h2>
+<!-- Display Filtered Movies -->
+<h2 class="mt-4">All Movies</h2>
+<div class="list-group">
   <% @movies.each do |movie| %>
-    <div class="list-group-item">
+    <div class="list-group-item mb-4" style="min-height: 200px;"> <!-- Set a minimum height for uniformity -->
       <h5 class="mb-1"><%= movie.title %></h5>
       <p class="mb-1">Average Rating: <strong><%= movie.average_rating %></strong></p>
       <p class="mb-2">Description: <i><%= movie.blurb %></i></p>
@@ -61,19 +72,27 @@
         <% end %>
       </p>
 
-      <div>
-        <%= link_to "Show this movie", movie_path(movie), class: "btn btn-primary btn-sm" %>
-        <%= link_to "Edit this movie", edit_movie_path(id: movie, page: params[:page], genre: params[:genre], showing_status: params[:showing_status]), class: "btn btn-warning btn-sm" %>
-        <%= link_to "Review this movie", new_movie_review_path(movie), class: "btn btn-info btn-sm" %>
+      <div class="d-flex justify-content-between mt-3">
+        <div>
+          <%= link_to "Show this movie", movie_path(movie), class: "btn btn-primary btn-sm" %>
+          <% if user_signed_in? %>
+            <%= link_to "Edit this movie", edit_movie_path(id: movie, page: params[:page], genre: params[:genre], showing_status: params[:showing_status]), class: "btn btn-warning btn-sm" %>
+            <%= link_to "Review this movie", new_movie_review_path(movie), class: "btn btn-info btn-sm" %>
+          <% else %>
+            <button class="btn btn-warning btn-sm" disabled>Edit Movie</button>
+            <button class="btn btn-info btn-sm" disabled>Review This Movie</button>
+          <% end %>
+        </div>
       </div>
     </div>
   <% end %>
+</div>
 
-  <div class="mt-4">
-    <%= link_to "New movie", new_movie_path, class: "btn btn-success" %>
-  </div>
 
-  <div class="mt-4">
-    <%= paginate @movies %>
-  </div>
+<div class="mt-4">
+  <%= link_to "New movie", new_movie_path, class: "btn btn-success" %>
+</div>
+
+<div class="mt-4">
+  <%= paginate @movies %>
 </div>

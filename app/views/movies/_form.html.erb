@@ -1,8 +1,7 @@
-<%= form_with(model: movie) do |form| %>
+<%= form_with(model: movie, local: true) do |form| %>
   <% if movie.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
-
+    <div class="alert alert-danger">
+      <h4><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h4>
       <ul>
         <% movie.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,37 +10,37 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control", placeholder: "Enter movie title" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :blurb, class: "form-label" %>
+    <%= form.text_area :blurb, class: "form-control", placeholder: "Enter a brief description of the movie" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :date_released, class: "form-label" %>
+    <%= form.datetime_field :date_released, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :country_of_origin, class: "form-label" %>
+    <%= form.text_field :country_of_origin, class: "form-control", placeholder: "Enter country of origin" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :showing_start, class: "form-label" %>
+    <%= form.datetime_field :showing_start, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :showing_end, class: "form-label" %>
+    <%= form.datetime_field :showing_end, class: "form-control" %>
   </div>
 
   <div>
-    <%= form.label :blurb, style: "display: block" %>
-    <%= form.text_area :blurb %>
-  </div>
-
-  <div>
-    <%= form.label :date_released, style: "display: block" %>
-    <%= form.datetime_field :date_released %>
-  </div>
-
-  <div>
-    <%= form.label :country_of_origin, style: "display: block" %>
-    <%= form.text_field :country_of_origin %>
-  </div>
-
-  <div>
-    <%= form.label :showing_start, style: "display: block" %>
-    <%= form.datetime_field :showing_start %>
-  </div>
-
-  <div>
-    <%= form.label :showing_end, style: "display: block" %>
-    <%= form.datetime_field :showing_end %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit "Save Movie", class: "btn btn-primary" %>
   </div>
 <% end %>
