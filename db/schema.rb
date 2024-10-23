@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_22_072555) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_23_034622) do
   create_table "genres", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_22_072555) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "slug"
+    t.datetime "deleted_at"
     t.index ["slug"], name: "index_movies_on_slug", unique: true
   end
 
@@ -47,6 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_22_072555) do
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["movie_id"], name: "index_reviews_on_movie_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
