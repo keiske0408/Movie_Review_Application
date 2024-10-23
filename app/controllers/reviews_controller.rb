@@ -13,6 +13,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = @movie.reviews.build(review_params)
+    @review.user = current_user
     if @review.save
       flash[:notice] = 'Review created successfully'
       redirect_to movie_reviews_path(@movie)
