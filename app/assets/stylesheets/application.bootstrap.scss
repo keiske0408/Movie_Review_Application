@@ -1,2 +1,40 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.btn-primary {
+  background-color: #1877f2; /* Facebook blue */
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #166fe5; /* Darker blue on hover */
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+//.container {
+//  //background-color: #f0f2f5; /* Light background color */
+//  //border-radius: 8px;
+//  //padding: 15px;
+//  //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//}
+
+.container {
+  padding: 0; /* Remove default padding */
+}
+
+.container {
+  padding: 0; /* Remove default padding */
+}
+
+.col-md-4 {
+  padding: 30px; /* Add more padding to the form */
+  border: 1px solid #ccc; /* Optional: add a border */
+  border-radius: 5px; /* Optional: add rounded corners */
+  background-color: #fff; /* Optional: set a background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow */
+}
+
+
