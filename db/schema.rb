@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_24_055250) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_24_082543) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -96,6 +96,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_24_055250) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
+    t.bigint "address_region_id"
+    t.bigint "address_province_id"
+    t.index ["address_province_id"], name: "index_users_on_address_province_id"
+    t.index ["address_region_id"], name: "index_users_on_address_region_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

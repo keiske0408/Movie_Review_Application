@@ -2,7 +2,7 @@
   <div class="col-md-4" style="max-width: 400px;">
     <h2 class="text-center mb-4">Sign up</h2>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name),data: { controller: :location }, html: { class: "needs-validation", novalidate: true, }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="mb-3">
@@ -21,6 +21,29 @@
       <div class="mb-3">
         <%= f.label :password_confirmation, class: 'form-label' %>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: "Confirm Password", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :address, class: 'form-label' %>
+        <%= f.text_field :address, class: 'form-control', placeholder: "Address" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :address_region_id, class: 'form-label' %>
+        <%= f.collection_select :address_region_id,
+                                Address::Region.all, :id, :name,
+                                { prompt: 'Please select region' },
+                                data: { location_target: 'selectedRegionId', action: 'change->location#fetchProvinces' },
+                                class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :address_province_id, class: 'form-label' %>
+        <%= f.collection_select :address_province_id,
+                                [], nil, nil,
+                                { prompt: 'Please select province' },
+                                data: { location_target: 'selectProvinceId' },
+                                class: 'form-control' %>
       </div>
 
       <div class="d-grid mt-3">
